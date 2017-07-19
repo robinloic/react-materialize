@@ -41,7 +41,7 @@ class Collapsible extends Component {
   renderItem (child, key) {
     if (!child) return null;
     const props = {
-      expanded: this.state.activeKey === `key${key}`,
+      expanded: this.state.activeKey === key,
       onSelect: this.handleSelect
     };
 

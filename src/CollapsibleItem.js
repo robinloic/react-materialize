@@ -28,7 +28,7 @@ const CollapsibleItem = ({
 );
 
 CollapsibleItem.propTypes = {
-  header: PropTypes.string.isRequired,
+  header: PropTypes.element.isRequired,
   icon: PropTypes.string,
   iconClassName: PropTypes.string,
   children: PropTypes.node,

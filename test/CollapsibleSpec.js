@@ -58,47 +58,59 @@ describe('<Collapsible />', () => {
     assert(collapsibleChildren.at(0).key().indexOf('testKey') >= 0);
   });
 
-  describe('<CollapsibleItem />', () => {
+  describe.only('<CollapsibleItem />', () => {
     let wrapper;
 
-    beforeEach(() => {
-      wrapper = mount(
-        <Collapsible accordion>
-          <CollapsibleItem header='First' icon='filter_drama' iconClassName='right'>
-            Lorem ipsum dolor sit amet.
-          </CollapsibleItem>
-          <CollapsibleItem header='Second' icon='place'>
-            Lorem ipsum dolor sit amet.
-          </CollapsibleItem>
-          <CollapsibleItem header='Third' icon='whatshot'>
-            Lorem ipsum dolor sit amet.
-          </CollapsibleItem>
-        </Collapsible>
-      );
-    });
-
-    it('renders', () => {
-      assert.strictEqual(wrapper.find('a.collapsible-header').length, 3);
-    });
-
-    it('accepts icon props', () => {
-      assert(wrapper.contains(<i className='material-icons right'>filter_drama</i>), 'with rendered icon');
-    });
-
-    it('expands if expanded prop is true', () => {
-      const firstChild = wrapper.find('.collapsible-header').first();
-
-      expect(wrapper.state()['activeKey']).to.eq('');
-      firstChild.simulate('click');
-      expect(wrapper.state()['activeKey']).to.eq('key0');
-      expect(firstChild.hasClass('active')).to.eq(true);
-    });
-
-    context('with node prop', () => {
-      it('changes the child node to the supplied', () => {
-        const wrapper = shallow(<CollapsibleItem node='div' header='Hi' />);
-        expect(wrapper.childAt(1).type()).to.eq('div');
+    context('default', () => {
+      beforeEach(() => {
+        wrapper = mount(
+          <Collapsible defaultActiveKey={1}>
+            <li eventKey={0}>Hey</li>
+            <li eventKey={1}>Ho</li>
+          </Collapsible>
+        );
       });
+
+      it('renders', () => {
+        expect(wrapper.hasClass('collapsible')).to.eq(true);
+        expect(wrapper.find('li').length).to.eq(2);
+      });
+
+      it('handles defaultActiveKey setting state', () => {
+        console.log(wrapper.state().activeKey)
+        console.log(wrapper.debug())
+      });
+
+      it('renders child items');
+      it('changes state when child is selected');
     });
+
+    context('with accordion', () => {
+      it('does something');
+    });
+
+    // it('renders', () => {
+      // assert.strictEqual(wrapper.find('a.collapsible-header').length, 3);
+    // });
+
+    // it('accepts icon props', () => {
+      // assert(wrapper.contains(<i className='material-icons right'>filter_drama</i>), 'with rendered icon');
+    // });
+
+    // it('expands if expanded prop is true', () => {
+      // const firstChild = wrapper.find('.collapsible-header').first();
+
+      // expect(wrapper.state()['activeKey']).to.eq('');
+      // firstChild.simulate('click');
+      // expect(wrapper.state()['activeKey']).to.eq('key0');
+      // expect(firstChild.hasClass('active')).to.eq(true);
+    // });
+
+    // context('with node prop', () => {
+      // it('changes the child node to the supplied', () => {
+        // const wrapper = shallow(<CollapsibleItem node='div' header='Hi' />);
+        // expect(wrapper.childAt(1).type()).to.eq('div');
+      // });
+    // });
   });
 });
